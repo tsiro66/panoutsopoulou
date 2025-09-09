@@ -27,7 +27,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <span className="secondary text-[10px] tracking-[0.2em] text-gray-700 block mb-1">
+              <span className="text-[10px] tracking-[0.2em] text-gray-700 block mb-1">
                 ΔΕΡΜΑΤΟΛΟΓΟΣ
               </span>
               <h2 className="logo text-xl font-light tracking-wide text-black">
@@ -189,12 +189,12 @@ const Footer = () => {
               Επικοινωνήστε μαζί μας για να προγραμματίσουμε την επίσκεψή σας.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="secondary bg-black text-white px-8 py-3 text-sm cursor-pointer hover:bg-gray-800 transition-colors duration-300">
+              <button className="bg-black text-white px-8 py-3 text-sm cursor-pointer hover:bg-gray-800 transition-colors duration-300">
                 Κλείσε ραντεβού online
               </button>
               <a 
                 href="tel:+302610123456" 
-                className="secondary border border-black text-black px-8 py-3 text-sm inline-flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-all duration-300"
+                className="border border-black text-black px-8 py-3 text-sm inline-flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-all duration-300"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
