@@ -1,17 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [activeView, setActiveView] = useState('main'); // 'main', 'services', 'treatments'
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNearFooter, setIsNearFooter] = useState(false);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
+      // 1. Check if the page is scrolled from the top
       setIsScrolled(window.scrollY > 20);
+
+      // 2. Check if the button is near the footer
+      const footer = document.querySelector('footer');
+      const button = buttonRef.current;
+      if (footer && button) {
+        const buttonRect = button.getBoundingClientRect();
+        const footerRect = footer.getBoundingClientRect();
+
+        // Hide the button if its bottom edge overlaps the footer's top edge
+        setIsNearFooter(buttonRect.bottom > footerRect.top);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check on component mount
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, []); // Empty dependency array ensures this runs only on mount and unmount
 
   const openSubmenu = (menu) => {
     setActiveView(menu);
@@ -47,21 +65,23 @@ const Navbar = () => {
     <>
       {/* Fixed Header Bar with Name */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' : 'bg-transparent py-3'
+        isScrolled ? (isOpen ? 'bg-transparent py-3' : 'bg-white/25 backdrop-blur-md shadow-lg py-2') : 'bg-transparent py-3'
       }`}>
-        <div className="container flex justify-between mx-auto px-4 md:px-10">
+        <div className="container flex justify-between items-center mx-auto px-4 md:px-10">
           {/* Logo/Name - Top Left */}
           <a href="#" className={`inline-block transition-all duration-300 ${
             isScrolled ? 'text-violet-600' : 'text-gray-800'
           }`}>
             <div className="flex flex-col">
-              <span className={`secondary text-[10px] tracking-[0.2em] text-gray-700 mb-0.5 transition duration-300`}>ΔΕΡΜΑΤΟΛΟΓΟΣ</span>
-              <h1 className={`logo text-xl md:text-2xl font-light tracking-wide text-black transition duration-300`}>
+              <span className={`text-[9px] sm:text-[10px] tracking-[0.2em]  mb-0.5 transition duration-300 
+                ${isOpen ? 'text-gray-700' : isScrolled ? 'text-gray-700' : 'text-white'}`}>ΔΕΡΜΑΤΟΛΟΓΟΣ</span>
+              <h1 className={`logo text-lg md:text-2xl font-light tracking-wide transition duration-300 
+                ${isOpen ? 'text-black' : isScrolled ? 'text-gray-900' : 'text-white'}`}>
                 ΔΡ. ΙΩΑΝΝΑ ΠΑΝΟΥΤΣΟΠΟΥΛΟΥ
               </h1>
             </div>
           </a>
-          <button className='secondary bg-black text-white px-2 sm:px-4 text-sm cursor-pointer'>
+          <button className='bg-black text-white px-3 sm:px-4 text-[10px] sm:text-xs cursor-pointer h-8 sm:h-9'>
             Κλείσε ραντεβού
           </button>
         </div>
@@ -69,32 +89,36 @@ const Navbar = () => {
 
       {/* Hamburger Menu Button - Fixed for Mobile */}
       <button
+        ref={buttonRef}
         onClick={() => setOpen(!isOpen)}
-        className={`fixed md:top-1/2 md:left-8 md:-translate-y-1/2 top-6 right-4 z-50 w-8 h-8 md:w-10 md:h-10 flex flex-col items-center justify-center gap-1 md:gap-1.5 group transition-all duration-300 ${
-          isOpen ? 'rotate-180' : ''
-        }`}
+        disabled={!isScrolled && !isOpen}
+        className={`fixed md:top-1/2 md:left-8 md:-translate-y-1/2 top-6 right-4 z-50 w-8 h-8 md:w-10 md:h-10 flex flex-col items-center
+          justify-center gap-1 md:gap-1.5 group transition-all duration-300
+          ${isOpen ? 'rotate-180' : ''}
+          ${isNearFooter && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
+        `}
         aria-label="Menu"
       >
         <span className={`block w-5 md:w-7 h-0.5 transition-all duration-300 ${
           isOpen 
             ? 'bg-black rotate-45 translate-y-1.5 md:translate-y-2' 
             : isScrolled 
-              ? 'bg-violet-600 group-hover:w-4 md:group-hover:w-5' 
-              : 'bg-gray-700 group-hover:w-4 md:group-hover:w-5'
+              ? 'bg-gray-700 group-hover:w-4 md:group-hover:w-5' 
+              : 'hidden'
         }`}></span>
         <span className={`block w-5 md:w-7 h-0.5 transition-all duration-300 ${
           isOpen 
             ? 'bg-black opacity-0' 
             : isScrolled 
-              ? 'bg-violet-600' 
-              : 'bg-gray-700'
+              ? 'bg-gray-700' 
+              : 'hidden'
         }`}></span>
         <span className={`block w-5 md:w-7 h-0.5 transition-all duration-300 ${
           isOpen 
             ? 'bg-black -rotate-45 -translate-y-1.5 md:-translate-y-2' 
             : isScrolled 
-              ? 'bg-violet-600 group-hover:w-4 md:group-hover:w-5' 
-              : 'bg-gray-700 group-hover:w-4 md:group-hover:w-5'
+              ? 'bg-gray-700 group-hover:w-4 md:group-hover:w-5' 
+              : 'hidden'
         }`}></span>
       </button>
 
@@ -312,7 +336,7 @@ const Navbar = () => {
 
             {/* Contact Info - Only visible on main menu */}
             <div className={`mt-8 md:mt-12 pt-8 md:pt-12 border-t border-black/20 transition-all duration-700 ${
-              isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              isOpen && activeView === 'main' ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`} style={{ transitionDelay: '600ms' }}>
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-black/70">
                 <a href="tel:+302610123456" className="flex items-center gap-2 hover:text-black transition-colors text-sm md:text-base">
@@ -332,7 +356,6 @@ const Navbar = () => {
           </nav>
         </div>
       </div>
-
     </>
   );
 };
