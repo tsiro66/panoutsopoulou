@@ -81,7 +81,8 @@ const Navbar = () => {
               </h1>
             </div>
           </a>
-          <button className='bg-black text-white px-3 sm:px-4 text-[10px] sm:text-xs cursor-pointer h-8 sm:h-9'>
+          <button className='bg-black text-white px-3 sm:px-4 text-[10px] sm:text-xs cursor-pointer h-8 sm:h-9
+          hover:bg-gray-900 transition-colors duration-300'>
             Κλείσε ραντεβού
           </button>
         </div>
