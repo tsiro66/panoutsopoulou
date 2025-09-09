@@ -248,7 +248,7 @@ const Homepage = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-50 to-[#f5f5d2]/20">
+      <section className="py-20 px-6 bg-gradient-to-r from-blue-50 to-[#f5f5d2]/20">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
