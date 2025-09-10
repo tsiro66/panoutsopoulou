@@ -90,7 +90,7 @@ const Homepage = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1581182800629-7d90925ad072?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=1920&h=1080&fit=crop')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1617617494949-1b29b0e1bf5f?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=1920&h=1080&fit=crop')`,
             transform: `translateY(${scrollY * 0.5}px)`
           }}
         >
@@ -114,7 +114,7 @@ const Homepage = () => {
               Εξειδικευμένη Δερματολογική<br />
               <span className="text-[#f5f5d2]">Φροντίδα & Αισθητική</span>
             </h1>
-            <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-light">
+            <p className="secondary text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-light">
               Σύγχρονες μέθοδοι διάγνωσης και θεραπείας με εξατομικευμένη προσέγγιση 
               για την υγεία και την ομορφιά του δέρματός σας
             </p>
@@ -142,7 +142,7 @@ const Homepage = () => {
             <h2 className="text-3xl md:text-4xl font-light text-black mb-6">
               Επιστημονική Αριστεία & Ανθρώπινη Φροντίδα
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="secondary text-gray-600 text-lg leading-relaxed">
               Στο ιατρείο της Δρ. Ιωάννας Πανουτσοπούλου, συνδυάζουμε την πλέον σύγχρονη 
               δερματολογική επιστήμη με την εξατομικευμένη φροντίδα. Κάθε ασθενής είναι 
               μοναδικός και η θεραπευτική προσέγγιση προσαρμόζεται στις ιδιαίτερες ανάγκες του.
@@ -176,7 +176,7 @@ const Homepage = () => {
                 <h3 className="text-xl font-light text-black mb-3 group-hover:text-blue-900 transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="secondary text-gray-600 text-sm leading-relaxed">
                   {service.description}
                 </p>
                 <div className="mt-6">
@@ -203,7 +203,7 @@ const Homepage = () => {
             <h2 className="text-3xl md:text-4xl font-light text-black mb-4">
               Προηγμένες Δερματολογικές Λύσεις
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="secondary text-gray-600 max-w-2xl mx-auto">
               Από την παιδιατρική δερματολογία έως τις πλέον σύγχρονες αισθητικές επεμβάσεις, 
               προσφέρουμε ολοκληρωμένες θεραπευτικές λύσεις
             </p>
@@ -231,7 +231,7 @@ const Homepage = () => {
                   <h3 className="text-xl font-light text-black mb-3 group-hover:text-blue-900 transition-colors">
                     {treatment.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  <p className="secondary text-gray-600 text-sm leading-relaxed mb-4">
                     {treatment.description}
                   </p>
                   <a href="#" className="text-blue-900 text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">
@@ -267,7 +267,7 @@ const Homepage = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-black mb-2">Πιστοποιημένη Εξειδίκευση</h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="secondary text-gray-600 text-sm">
                       Διεθνώς αναγνωρισμένη εκπαίδευση και συνεχής επιμόρφωση στις τελευταίες εξελίξεις
                     </p>
                   </div>
@@ -280,7 +280,7 @@ const Homepage = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-black mb-2">Άμεση Εξυπηρέτηση</h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="secondary text-gray-600 text-sm">
                       Ευέλικτο πρόγραμμα ραντεβού και προτεραιότητα σε επείγοντα περιστατικά
                     </p>
                   </div>
@@ -293,7 +293,7 @@ const Homepage = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-black mb-2">Ανθρωποκεντρική Προσέγγιση</h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="secondary text-gray-600 text-sm">
                       Εξατομικευμένη φροντίδα με σεβασμό στις ανάγκες κάθε ασθενούς
                     </p>
                   </div>
@@ -326,7 +326,7 @@ const Homepage = () => {
           <h2 className="text-3xl md:text-4xl font-light text-black mb-6">
             Ξεκινήστε το Ταξίδι σας προς το <br /> Υγιές & Όμορφο Δέρμα
           </h2>
-          <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="secondary text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
             Επικοινωνήστε μαζί μας σήμερα για να προγραμματίσουμε 
             την πρώτη σας συνάντηση και να σχεδιάσουμε μαζί το θεραπευτικό σας πλάνο
           </p>

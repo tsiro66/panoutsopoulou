@@ -5,22 +5,37 @@ const Navbar = () => {
   const [activeView, setActiveView] = useState('main'); // 'main', 'services', 'treatments'
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNearFooter, setIsNearFooter] = useState(false);
-  const buttonRef = useRef(null);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const mobileButtonRef = useRef(null);
+  const desktopButtonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       // 1. Check if the page is scrolled from the top
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+      
+      // Check if we're at the very top of the page (homepage)
+      setIsAtTop(scrollY < 100);
 
       // 2. Check if the button is near the footer
       const footer = document.querySelector('footer');
-      const button = buttonRef.current;
-      if (footer && button) {
-        const buttonRect = button.getBoundingClientRect();
-        const footerRect = footer.getBoundingClientRect();
-
-        // Hide the button if its bottom edge overlaps the footer's top edge
-        setIsNearFooter(buttonRect.bottom > footerRect.top);
+      const mobileButton = mobileButtonRef.current;
+      const desktopButton = desktopButtonRef.current;
+      
+      if (footer) {
+        // Check for mobile button
+        if (mobileButton) {
+          const buttonRect = mobileButton.getBoundingClientRect();
+          const footerRect = footer.getBoundingClientRect();
+          setIsNearFooter(buttonRect.bottom > footerRect.top);
+        }
+        // Check for desktop button
+        else if (desktopButton) {
+          const buttonRect = desktopButton.getBoundingClientRect();
+          const footerRect = footer.getBoundingClientRect();
+          setIsNearFooter(buttonRect.bottom > footerRect.top);
+        }
       }
     };
 
@@ -71,7 +86,7 @@ const Navbar = () => {
     <div className="flex items-center justify-between">
       {/* Mobile: Hamburger on left - Now doesn't take space when hidden */}
       <button
-        ref={buttonRef}
+        ref={mobileButtonRef}
         onClick={() => setOpen(!isOpen)}
         disabled={!isScrolled && !isOpen}
         className={`md:hidden w-8 h-8 flex-col items-center justify-center gap-1 group transition-all duration-300
@@ -132,12 +147,13 @@ const Navbar = () => {
 
       {/* Desktop Hamburger Menu Button - Fixed on left side */}
       <button
+        ref={desktopButtonRef}
         onClick={() => setOpen(!isOpen)}
-        disabled={!isScrolled && !isOpen}
+        disabled={(!isScrolled && !isOpen) || (isAtTop && !isOpen)}
         className={`hidden md:flex fixed top-1/2 left-8 -translate-y-1/2 z-50 w-10 h-10 flex-col items-center
           justify-center gap-1.5 group transition-all duration-300
           ${isOpen ? 'rotate-180' : ''}
-          ${isNearFooter && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
+          ${(isNearFooter || isAtTop) && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
           ${!isScrolled && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
         `}
         aria-label="Menu"
@@ -167,7 +183,7 @@ const Navbar = () => {
       >
         {/* Gradient Background */}
         <div 
-          className={`absolute inset-0 bg-[#f5f5d2] transition-opacity duration-700 ${
+          className={`absolute inset-0 bg-[#dae0bc] transition-opacity duration-700 ${
             isOpen ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -179,7 +195,7 @@ const Navbar = () => {
           <nav className="text-center max-w-4xl mx-auto w-full relative overflow-hidden">
             
             {/* Main Menu */}
-            <ul className={`space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-500 ${
+            <ul className={`secondary space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-500 ${
               activeView === 'main' ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 absolute inset-0'
             }`}>
               {/* Αρχική */}
@@ -297,7 +313,7 @@ const Navbar = () => {
                     className="group inline-block"
                     onClick={closeMenu}
                   >
-                    <span className="text-black text-xl sm:text-2xl md:text-3xl font-light relative">
+                    <span className="secondary text-black text-xl sm:text-2xl md:text-3xl font-light relative">
                       {item}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black/30 group-hover:w-full transition-all duration-300"></span>
                     </span>
@@ -344,7 +360,7 @@ const Navbar = () => {
                     className="group inline-block"
                     onClick={closeMenu}
                   >
-                    <span className="text-black text-xl sm:text-2xl md:text-3xl font-light relative">
+                    <span className="secondary text-black text-xl sm:text-2xl md:text-3xl font-light relative">
                       {item}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black/30 group-hover:w-full transition-all duration-300"></span>
                     </span>
@@ -374,7 +390,7 @@ const Navbar = () => {
             {/* Contact Info - Only visible on main menu */}
             <div className={`mt-6 sm:mt-8 md:mt-12 pt-6 sm:pt-8 md:pt-12 border-t border-black/20 transition-all duration-700 ${
               isOpen && activeView === 'main' ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`} style={{ transitionDelay: '600ms' }}>
+            }`}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-8 text-black/70">
                 <a href="tel:+302610123456" className="flex items-center gap-2 hover:text-black transition-colors text-xs sm:text-sm md:text-base">
                   <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

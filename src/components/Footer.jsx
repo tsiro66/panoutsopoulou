@@ -184,7 +184,7 @@ const Footer = () => {
             <h3 className="text-2xl md:text-3xl font-light text-black mb-4">
               Κλείστε το ραντεβού σας σήμερα
             </h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            <p className="secondary text-gray-600 mb-6 max-w-2xl mx-auto">
               Εμπιστευτείτε την υγεία του δέρματός σας σε έμπειρα χέρια. 
               Επικοινωνήστε μαζί μας για να προγραμματίσουμε την επίσκεψή σας.
             </p>
