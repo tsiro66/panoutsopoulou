@@ -1,13 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [activeView, setActiveView] = useState('main'); // 'main', 'services', 'treatments'
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isNearFooter, setIsNearFooter] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
-  const mobileButtonRef = useRef(null);
-  const desktopButtonRef = useRef(null);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,26 +15,6 @@ const Navbar = () => {
       
       // Check if we're at the very top of the page (homepage)
       setIsAtTop(scrollY < 100);
-
-      // 2. Check if the button is near the footer
-      const footer = document.querySelector('footer');
-      const mobileButton = mobileButtonRef.current;
-      const desktopButton = desktopButtonRef.current;
-      
-      if (footer) {
-        // Check for mobile button
-        if (mobileButton) {
-          const buttonRect = mobileButton.getBoundingClientRect();
-          const footerRect = footer.getBoundingClientRect();
-          setIsNearFooter(buttonRect.bottom > footerRect.top);
-        }
-        // Check for desktop button
-        else if (desktopButton) {
-          const buttonRect = desktopButton.getBoundingClientRect();
-          const footerRect = footer.getBoundingClientRect();
-          setIsNearFooter(buttonRect.bottom > footerRect.top);
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -86,12 +64,11 @@ const Navbar = () => {
     <div className="flex items-center justify-between">
       {/* Mobile: Hamburger on left - Now doesn't take space when hidden */}
       <button
-        ref={mobileButtonRef}
         onClick={() => setOpen(!isOpen)}
         disabled={!isScrolled && !isOpen}
         className={`md:hidden w-8 h-8 flex-col items-center justify-center gap-1 group transition-all duration-300
           ${isOpen ? 'rotate-180 flex' : ''}
-          ${(isNearFooter && !isOpen) || (!isScrolled && !isOpen) ? 'hidden' : 'flex'}
+          ${ (!isScrolled && !isOpen) ? 'hidden' : 'flex'}
         `}
         aria-label="Menu"
       >
@@ -147,13 +124,12 @@ const Navbar = () => {
 
       {/* Desktop Hamburger Menu Button - Fixed on left side */}
       <button
-        ref={desktopButtonRef}
         onClick={() => setOpen(!isOpen)}
         disabled={(!isScrolled && !isOpen) || (isAtTop && !isOpen)}
         className={`hidden md:flex fixed top-1/2 left-8 -translate-y-1/2 z-50 w-10 h-10 flex-col items-center
           justify-center gap-1.5 group transition-all duration-300
           ${isOpen ? 'rotate-180' : ''}
-          ${(isNearFooter || isAtTop) && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
+          ${isAtTop && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
           ${!isScrolled && !isOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}
         `}
         aria-label="Menu"
